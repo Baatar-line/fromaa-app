@@ -1,25 +1,32 @@
 import React, { useState } from "react";
 import { TextField } from "./TextField";
 import { Button } from "./Button";
+import { Nexticon } from "./Nexticon";
+import { Previcon } from "./Previcon";
 
-export const SecondStep = ({ handleNextStep, handlePrevStep }) => {
-  const [email, setEmail] = useState("");
-  const [phone, setPhonenumber] = useState("");
-  const [password, setPassword] = useState("");
+export const SecondStep = ({
+  handleNextStep,
+  handlePrevStep,
+  form,
+  setForm,
+}) => {
+  // const [email, setEmail] = useState("");
+  // const [phone, setPhonenumber] = useState("");
+  // const [password, setPassword] = useState("");
 
   const isEmailValid = () => {
-    if (email === "") return "Email cannot be empty...";
-    if (!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(email))
+    if (form.email === "") return "Email cannot be empty...";
+    if (!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(form.email))
       return "Email is not valid.";
   };
   const isPhonenumberValid = () => {
-    if (phone === "") return "Phone cannot be empty...";
-    if (!/^[0-9]{8}$/.test(phone)) return "Phone is not valid.";
+    if (form.phone === "") return "Phone cannot be empty...";
+    if (!/^[0-9]{8}$/.test(form.phone)) return "Phone is not valid.";
   };
   const isPasswordValid = () => {
     // isPasswordValid = s;
-    if (password === "") return "Password cannot be empty...";
-    if (!/^.{8,}$/.test(password)) return "Password is not valid.";
+    if (form.password === "") return "Password cannot be empty...";
+    if (!/^.{8,}$/.test(form.password)) return "Password is not valid.";
   };
   const isHavingError = () => {
     return isEmailValid() || isPhonenumberValid() || isPasswordValid();
@@ -35,9 +42,10 @@ export const SecondStep = ({ handleNextStep, handlePrevStep }) => {
         <div className="flex flex-col justify-between min-h-112.5">
           <div className=" flex flex-col justify-between  min-h-62.5">
             <TextField
-              value={email}
+              value={form.email}
               onChange={(e) => {
-                setEmail(e.target.value);
+                // setEmail(e.target.value);
+                setForm({ ...form, email: e.target.value });
               }}
               error={isEmailValid()}
               required={true}
@@ -46,9 +54,9 @@ export const SecondStep = ({ handleNextStep, handlePrevStep }) => {
             />
 
             <TextField
-              value={phone}
+              value={form.phone}
               onChange={(e) => {
-                setPhonenumber(e.target.value);
+                setForm({ ...form, phone: e.target.value });
               }}
               error={isPhonenumberValid()}
               required={true}
@@ -57,9 +65,9 @@ export const SecondStep = ({ handleNextStep, handlePrevStep }) => {
             />
 
             <TextField
-              value={password}
+              value={form.password}
               onChange={(e) => {
-                setPassword(e.target.value);
+                setForm({ ...form, password: e.target.value });
               }}
               error={isPasswordValid()}
               required={true}
@@ -69,15 +77,15 @@ export const SecondStep = ({ handleNextStep, handlePrevStep }) => {
           </div>
         </div>
         <div className="flex justify-between   ">
-          <Button className="w-[128px]" onClick={handlePrevStep}>
-            Prev
+          <Button className="w-32" onClick={handlePrevStep}>
+            <Previcon />
           </Button>
           <Button
-            className="w-[280px]"
+            className="w-70"
             onClick={handleNextStep}
             disabled={isHavingError()}
           >
-            NEXT
+            <Nexticon />
           </Button>
         </div>
       </div>

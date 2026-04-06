@@ -2,10 +2,20 @@
 import { useState } from "react";
 import { FirstStep } from "./components/FirstStep";
 import { SecondStep } from "./components/SecondStep";
+import { ThreeStep } from "./components/ThreeStep";
 
 export default function Home() {
-  const [step, setStep] = useState(0);
-  const steps = [FirstStep, SecondStep];
+  const [step, setStep] = useState(2);
+  const steps = [FirstStep, SecondStep, ThreeStep];
+  const [form, setForm] = useState({
+    firstname: "",
+    lastname: "",
+    Username: "",
+    email: "",
+    birthday: "",
+    image: "",
+  });
+
   const handleNextStep = () => {
     setStep(step + 1);
   };
@@ -16,6 +26,8 @@ export default function Home() {
   return (
     <div className="w-full h-screen flex justify-center items-center bg-[#f4f4f4]">
       <StepForm
+        form={form}
+        setForm={setForm}
         handleNextStep={handleNextStep}
         handlePrevStep={handlePrevStep}
       />
