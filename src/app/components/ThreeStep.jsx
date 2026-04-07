@@ -4,6 +4,7 @@ import { Button } from "./Button";
 import { ImageField } from "./ImageField";
 import { Prev, Previcon } from "./Previcon";
 import { Nexticon } from "./Nexticon";
+import { Logo } from "./Logo";
 
 export const ThreeStep = ({ handleNextStep, handlePrevStep }) => {
   const [date, setDate] = useState("");
@@ -20,6 +21,7 @@ export const ThreeStep = ({ handleNextStep, handlePrevStep }) => {
   };
   return (
     <div className="w-120 min-h-163.75 bg-white rounded-lg p-8 shadow-xl">
+      <Logo />
       <div className="space-y-2">
         {/* <Logo /> */}
         <h1 className="font-semibold text-2xl">Join Us! 😎</h1>

@@ -5,7 +5,7 @@ import { SecondStep } from "./components/SecondStep";
 import { ThreeStep } from "./components/ThreeStep";
 
 export default function Home() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const steps = [FirstStep, SecondStep, ThreeStep];
   const [form, setForm] = useState({
     firstname: "",

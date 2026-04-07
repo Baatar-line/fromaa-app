@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField } from "./TextField";
 import { Button } from "./Button";
 import { Nexticon } from "./Nexticon";
+import { Logo } from "./Logo";
 
 export const FirstStep = ({ handleNextStep, form, setForm }) => {
   const isFirstNameValid = () => {
@@ -26,6 +27,7 @@ export const FirstStep = ({ handleNextStep, form, setForm }) => {
   };
   return (
     <div className="w-120 min-h-163.75 bg-white rounded-lg p-8 shadow-xl justify-content-end">
+      <Logo />
       <div className="space-y-2">
         {/* <Logo /> */}
         <h1 className="font-semibold text-2xl">Join Us! 😎</h1>

@@ -15,7 +15,7 @@ export const ImageField = (props) => {
       </label>
       <input type="file" />
       <div
-        className="flex flex-col h-[180px] bg-neutral-200 
+        className="flex flex-col h-45 bg-neutral-200 
       rounded-sm items-center justify-center gap-2"
       >
         <img
