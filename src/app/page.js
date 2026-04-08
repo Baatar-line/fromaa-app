@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { FirstStep } from "./components/FirstStep";
 import { SecondStep } from "./components/SecondStep";
-import { ThreeStep } from "./components/ThreeStep";
+import { ThirdStep } from "./components/ThirdStep";
+import { FourStep } from "./components/FourStep";
 
 export default function Home() {
-  const [step, setStep] = useState(1);
-  const steps = [FirstStep, SecondStep, ThreeStep];
+  const [step, setStep] = useState(2);
+  const steps = [FirstStep, SecondStep, ThirdStep, FourStep];
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",
@@ -14,6 +15,7 @@ export default function Home() {
     email: "",
     birthday: "",
     image: "",
+    date: "",
   });
 
   const handleNextStep = () => {

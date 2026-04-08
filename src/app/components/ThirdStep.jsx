@@ -5,15 +5,22 @@ import { ImageField } from "./ImageField";
 import { Prev, Previcon } from "./Previcon";
 import { Nexticon } from "./Nexticon";
 import { Logo } from "./Logo";
+import { formatDynamicAPIAccesses } from "next/dist/server/app-render/dynamic-rendering";
 
-export const ThreeStep = ({ handleNextStep, handlePrevStep }) => {
-  const [date, setDate] = useState("");
-  const [image, setImage] = useState("");
+export const ThirdStep = ({
+  handleNextStep,
+  handlePrevStep,
+  form,
+  setForm,
+}) => {
+  // const [date, setDate] = useState("");
+  // const [image, setImage] = useState("");
 
   const isDateValid = () => {
-    if (date === "") return "Email cannot be empty...";
-    if (!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(email))
-      return "Email is not valid.";
+    if (form.date === "") return "Please select a date.";
+  };
+  const isImageValid = () => {
+    if (form.image === "") return "Image cannot be blank";
   };
 
   const isHavingError = () => {
@@ -29,22 +36,24 @@ export const ThreeStep = ({ handleNextStep, handlePrevStep }) => {
           Please provide all current information accurately.
         </p>
         <div className="flex flex-col justify-between min-h-112.5">
-          <div className=" flex flex-col justify-between  min-h-62.5">
+          <div className=" flex flex-col justify-between  min-h-62.5 gap-5">
             <TextField
               type="date"
               //   value={form.birthday}
               onChange={(e) => {
                 setForm({ ...form, birthday: e.target.value });
               }}
+              error={isDateValid}
               required={true}
               label="Birthday"
             />
             <ImageField
-              //   value={form.image}
+              value={form.image}
               onChange={(e) => {
-                // setEmail(e.target.value);
-                setForm({ ...form, image: e.target.value });
+                const imageValue = URL.createObjectURL(e.target.files[0]);
+                setForm({ ...form, image: imageValue });
               }}
+              error={isImageValid}
               required={true}
               label="Profile Image"
             />
@@ -54,7 +63,11 @@ export const ThreeStep = ({ handleNextStep, handlePrevStep }) => {
           <Button className=" w-32px" onClick={handlePrevStep}>
             <Previcon />
           </Button>
-          <Button className="w-70 flex" onClick={handleNextStep}>
+          <Button
+            className="w-70"
+            onClick={handleNextStep}
+            disabled={isHavingError()}
+          >
             <Nexticon />
           </Button>
         </div>
