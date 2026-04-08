@@ -4,6 +4,7 @@ import { FirstStep } from "./components/FirstStep";
 import { SecondStep } from "./components/SecondStep";
 import { ThirdStep } from "./components/ThirdStep";
 import { FourStep } from "./components/FourStep";
+import { Register } from "./components/Register";
 
 export default function Home() {
   const [step, setStep] = useState(2);
@@ -33,6 +34,7 @@ export default function Home() {
         handleNextStep={handleNextStep}
         handlePrevStep={handlePrevStep}
       />
+      <Register setStep={setStep} />
     </div>
   );
 }

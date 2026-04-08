@@ -42,7 +42,7 @@ export const ImageField = (props) => {
               alt=""
             />
             <div
-              className="absolute top-4 right-4 cursor-pointer"
+              className="absolute top-4 right-4 cursor-pointer "
               onClick={onCancel}
             >
               <svg
