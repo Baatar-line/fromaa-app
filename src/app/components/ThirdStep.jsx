@@ -53,7 +53,7 @@ export const ThirdStep = ({
           <div className=" flex flex-col justify-between  min-h-62.5 gap-5">
             <TextField
               type="date"
-              //   value={form.birthday}
+              value={form.date}
               onChange={(e) => {
                 isDateValid(e.target.value);
                 setErrors({ ...errors, date: isDateValid(e.target.value) });

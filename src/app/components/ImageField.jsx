@@ -5,7 +5,7 @@ export const ImageField = (props) => {
       <label className="font-semibold text-sm">
         {label} {required && <span className="text-[#E14942]">*</span>}
       </label>
-      <div className="h-60 bg-[#ccc] rounded-sm flex justify-center items-center flex-col gap-2 relative overflow-hidden">
+      <div className="h-70 bg-[#ccc] rounded-sm flex justify-center items-center flex-col gap-2 relative overflow-hidden">
         <input
           onChange={onChange}
           onClick={(e) => {
