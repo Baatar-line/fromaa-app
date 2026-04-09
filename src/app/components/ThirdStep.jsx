@@ -1,30 +1,44 @@
-import React, { useState } from "react";
 import { TextField } from "./TextField";
 import { Button } from "./Button";
 import { ImageField } from "./ImageField";
-import { Prev, Previcon } from "./Previcon";
-import { Nexticon } from "./Nexticon";
 import { Logo } from "./Logo";
 import { formatDynamicAPIAccesses } from "next/dist/server/app-render/dynamic-rendering";
+import { Button2 } from "./Button2";
 
 export const ThirdStep = ({
   handleNextStep,
   handlePrevStep,
   form,
   setForm,
+  errors,
+  setErrors,
+  step,
 }) => {
   // const [date, setDate] = useState("");
   // const [image, setImage] = useState("");
 
-  const isDateValid = () => {
-    if (!form.date === "") return "Please select a date.";
+  const isDateValid = (value) => {
+    if (value === "") return "Please select a date.";
   };
-  const isImageValid = () => {
-    if (form.image === "") return "Image cannot be blank";
+  const isImageValid = (value) => {
+    if (value === "") return "Please select a date.";
   };
 
   const isHavingError = () => {
-    return isDateValid() || isImageValid();
+    return isDateValid(form.date) || isImageValid(form.image);
+  };
+  const handleReset = () => {
+    setForm({
+      firstname: "",
+      lastname: "",
+      username: "",
+      email: "",
+      birthday: "",
+      image: "",
+      date: "",
+      password: "",
+      password2: "",
+    });
   };
   return (
     <div className="w-120 min-h-163.75 bg-white rounded-lg p-8 shadow-xl">
@@ -41,35 +55,47 @@ export const ThirdStep = ({
               type="date"
               //   value={form.birthday}
               onChange={(e) => {
+                isDateValid(e.target.value);
+                setErrors({ ...errors, date: isDateValid(e.target.value) });
                 setForm({ ...form, date: e.target.value });
               }}
-              error={isDateValid}
+              error={errors.date}
               required={true}
               label="Birthday"
             />
             <ImageField
               value={form.image}
               onChange={(e) => {
+                isImageValid(e.target.value);
+                setErrors({
+                  ...errors,
+                  image: isImageValid(e.target.value),
+                });
                 const imageValue = URL.createObjectURL(e.target.files[0]);
                 setForm({ ...form, image: imageValue });
               }}
-              error={isImageValid}
+              onCancel={() => {
+                setForm({ ...form, image: "" });
+                isImageValid(form.image);
+              }}
+              error={errors.image}
               required={true}
               label="Profile Image"
             />
           </div>
         </div>
         <div className="flex justify-between   ">
-          <Button className=" w-32px" onClick={handlePrevStep}>
-            <Previcon />
-          </Button>
-          <Button
-            className="w-70"
-            onClick={handleNextStep}
+          <Button onClick={handlePrevStep}>{/* <Previcon /> */}</Button>
+          <Button2
+            onClick={() => {
+              handleNextStep();
+              handleReset();
+            }}
             disabled={isHavingError()}
+            step={step}
           >
-            <Nexticon />
-          </Button>
+            {/* <Nexticon /> */}
+          </Button2>
         </div>
       </div>
     </div>

@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { TextField } from "./TextField";
-import { Button } from "./Button";
-import { Nexticon } from "./Nexticon";
 import { Logo } from "./Logo";
 
 export const FourStep = ({ handleNextStep, form, setForm }) => {

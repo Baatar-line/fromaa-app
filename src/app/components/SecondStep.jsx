@@ -1,42 +1,41 @@
-import React, { useState } from "react";
 import { TextField } from "./TextField";
 import { Button } from "./Button";
-import { Nexticon } from "./Nexticon";
-import { Previcon } from "./Previcon";
 import { Logo } from "./Logo";
+import { Button2 } from "./Button2";
 
 export const SecondStep = ({
   handleNextStep,
   handlePrevStep,
   form,
   setForm,
+  errors,
+  setErrors,
+  step,
   // isHavingError,
 }) => {
   // const [email, setEmail] = useState("");
   // const [phone, setPhonenumber] = useState("");
   // const [password, setPassword] = useState("");
 
-  const isEmailValid = () => {
-    if (form.email === "") return "Email cannot be empty...";
-    if (!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(form.email))
+  const isEmailValid = (value) => {
+    if (value === "") return "Email cannot be empty...";
+    if (!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(value))
       return "Plaese provide a valid email address";
   };
-  const isPhonenumberValid = () => {
-    if (form.phone === "") return "Phone cannot be empty...";
-    if (!/^[0-9]{8}$/.test(form.phone))
-      return "Please enter a valid phone number";
+  const isPhonenumberValid = (value) => {
+    if (value === "") return "Phone cannot be empty...";
+    if (!/^[0-9]{8}$/.test(value)) return "Please enter a valid phone number";
   };
-  const isPasswordValid = () => {
+  const isPasswordValid = (value) => {
     // isPasswordValid = s;
-    if (form.password === "") return "Password cannot be empty...";
-    if (!/^.{8,}$/.test(form.password))
+    if (value === "") return "Password cannot be empty...";
+    if (!/^.{8,}$/.test(value))
       return "Password must include letters and numbers";
   };
-  const isPassword2Valid = () => {
+  const isPassword2Valid = (value) => {
     // isPasswordValid = s;
-    if (form.password2 !== form.password) return "Password cannot be empty...";
-    if (!/^.{8,}$/.test(form.password2))
-      return "Password do not match. Plase try again";
+    if (value !== form.password) return "Password cannot be empty...";
+    if (!/^.{8,}$/.test(value)) return "Password do not match. Plase try again";
   };
   // const Passincorrect = () => {
   // return (isHavingError = () => {
@@ -47,10 +46,10 @@ export const SecondStep = ({
 
   const isHavingError = () => {
     return (
-      isEmailValid() ||
-      isPhonenumberValid() ||
-      isPasswordValid() ||
-      isPassword2Valid()
+      isEmailValid(form.email) ||
+      isPhonenumberValid(form.phone) ||
+      isPasswordValid(form.password) ||
+      isPassword2Valid(form.password2)
     );
   };
 
@@ -69,59 +68,75 @@ export const SecondStep = ({
               value={form.email}
               onChange={(e) => {
                 // setEmail(e.target.value);
+                setErrors({
+                  ...errors,
+                  email: isEmailValid(e.target.value),
+                });
                 setForm({ ...form, email: e.target.value });
               }}
-              error={isEmailValid()}
+              error={errors.email}
               required={true}
               label="Email"
-              placeholder="sbatmagnai2...."
+              placeholder="@gmail.com"
             />
 
             <TextField
               value={form.phone}
               onChange={(e) => {
+                setErrors({
+                  ...errors,
+                  phone: isPhonenumberValid(e.target.value),
+                });
                 setForm({ ...form, phone: e.target.value });
               }}
-              error={isPhonenumberValid()}
+              error={errors.phone}
               required={true}
               label="Phone"
-              placeholder="85139..."
+              placeholder="phone..."
             />
 
             <TextField
+              type="password"
               value={form.password}
               onChange={(e) => {
+                setErrors({
+                  ...errors,
+                  password: isPasswordValid(e.target.value),
+                });
                 setForm({ ...form, password: e.target.value });
               }}
-              error={isPasswordValid()}
+              error={errors.password}
               required={true}
               label="Password"
-              placeholder="#..."
+              placeholder="pass . . ."
             />
 
             <TextField
+              type="password"
               value={form.password2}
               onChange={(e) => {
+                setErrors({
+                  ...errors,
+                  password2: isPassword2Valid(e.target.value),
+                });
                 setForm({ ...form, password2: e.target.value });
               }}
-              error={isPassword2Valid()}
+              error={errors.password2}
               required={true}
               label="Confirm password"
-              placeholder="#..."
+              placeholder="pass . . ."
             />
           </div>
         </div>
         <div className="flex justify-between   ">
-          <Button className="w-32" onClick={handlePrevStep}>
-            <Previcon />
-          </Button>
-          <Button
-            className="w-70"
+          <Button onClick={handlePrevStep}>{/* <Previcon /> */}</Button>
+          <Button2
             onClick={handleNextStep}
             disabled={isHavingError()}
+            step={step}
           >
-            <Nexticon />
-          </Button>
+            {/* <Nexticon /> */}
+          </Button2>
         </div>
       </div>
     </div>

@@ -1,29 +1,39 @@
 import React, { useState } from "react";
 import { TextField } from "./TextField";
-import { Button } from "./Button";
-import { Nexticon } from "./Nexticon";
 import { Logo } from "./Logo";
+import { Button2 } from "./Button2";
 
-export const FirstStep = ({ handleNextStep, form, setForm }) => {
-  const isFirstNameValid = () => {
-    if (form.firstname === "") return "First name cannot be empty...";
-    if (!/^[A-Za-z-]+$/.test(form.firstname))
+export const FirstStep = ({
+  handleNextStep,
+  form,
+  setForm,
+  errors,
+  setErrors,
+  step,
+}) => {
+  const isFirstNameValid = (value) => {
+    if (value === "") return "First name cannot be empty...";
+    if (!/^[A-Za-z-]+$/.test(value))
       return "First name cannot contain special characters or numbers.";
   };
-  const isLastNameValid = () => {
-    if (form.lastname === "") return "Last name cannot be empty...";
-    if (!/^[A-Za-z-]+$/.test(form.lastname))
+  const isLastNameValid = (value) => {
+    if (value === "") return "Last name cannot be empty...";
+    if (!/^[A-Za-z-]+$/.test(value))
       return "Last name cannot contain special characters or numbers.";
   };
-  const isUseNameValid = () => {
-    if (form.Username === "") return "Use name cannot be empty...";
-    if (!/^[A-Za-z-]+$/.test(form.Username))
+  const isUseNameValid = (value) => {
+    if (value === "") return "Use name cannot be empty...";
+    if (!/^[A-Za-z-]+$/.test(value))
       return "Usename can only contain lowercase letters and digits only";
   };
   // !/^[a-z0-9]+$/.
 
   const isHavingError = () => {
-    return isFirstNameValid() || isLastNameValid() || isUseNameValid();
+    return (
+      isFirstNameValid(form.firstname) ||
+      isLastNameValid(form.lastname) ||
+      isUseNameValid(form.Usename)
+    );
   };
   return (
     <div className="w-120 min-h-163.75 bg-white rounded-lg p-8 shadow-xl justify-content-end">
@@ -39,45 +49,54 @@ export const FirstStep = ({ handleNextStep, form, setForm }) => {
             <TextField
               value={form.firstname}
               onChange={(e) => {
-                // setFirstname(e.target.value);
+                setErrors({
+                  ...errors,
+                  firstname: isFirstNameValid(e.target.value),
+                });
                 setForm({ ...form, firstname: e.target.value });
               }}
-              error={isFirstNameValid()}
+              error={errors.firstname}
               required={true}
               label="First name"
-              placeholder="John..."
+              placeholder="John . . ."
             />
 
             <TextField
               value={form.lastname}
               onChange={(e) => {
+                setErrors({
+                  ...errors,
+                  lastname: isLastNameValid(e.target.value),
+                });
                 setForm({ ...form, lastname: e.target.value });
               }}
-              error={isLastNameValid()}
+              error={errors.lastname}
               required={true}
               label="Last name"
-              placeholder="Doe..."
+              placeholder="Doe . . ."
             />
 
             <TextField
               value={form.Username}
               onChange={(e) => {
+                setErrors({
+                  ...errors,
+                  Usename: isUseNameValid(e.target.value),
+                });
                 setForm({ ...form, Username: e.target.value });
               }}
-              error={isUseNameValid()}
+              error={errors.Usename}
               required={true}
               label="Use name"
-              placeholder="Jon"
+              placeholder="Jon . . ."
             />
           </div>
         </div>
-        <Button
-          className="max-w-104 flex flex-col content-end justify-end"
+        <Button2
           onClick={handleNextStep}
           disabled={isHavingError()}
-        >
-          <Nexticon />
-        </Button>
+          step={step}
+        ></Button2>
       </div>
     </div>
   );

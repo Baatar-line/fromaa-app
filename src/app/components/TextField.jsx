@@ -2,7 +2,7 @@ export const TextField = (props) => {
   const {
     label,
     placeholder,
-    value,
+    value = "",
     onChange,
     error,
     type = "text",
