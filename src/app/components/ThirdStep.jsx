@@ -17,7 +17,7 @@ export const ThirdStep = ({
   // const [image, setImage] = useState("");
 
   const isDateValid = () => {
-    if (form.date === "") return "Please select a date.";
+    if (!form.date === "") return "Please select a date.";
   };
   const isImageValid = () => {
     if (form.image === "") return "Image cannot be blank";
@@ -41,7 +41,7 @@ export const ThirdStep = ({
               type="date"
               //   value={form.birthday}
               onChange={(e) => {
-                setForm({ ...form, birthday: e.target.value });
+                setForm({ ...form, date: e.target.value });
               }}
               error={isDateValid}
               required={true}
